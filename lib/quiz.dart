@@ -65,7 +65,18 @@ class _QuizState extends State<Quiz> {
   }
 */
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
+    Widget screenWidget = StartingScreen(switchScreen);
+
+    if (activeScreen == 'questions-screen') {
+      screenWidget = const QuestionsScreen();
+    }
+
+    /* La funzione ternaria la possiamo riportare qui sopra in questo modo:
+    final screenWidget = activeScreen == "starting-screen"
+        ? StartingScreen(switchScreen)
+        : const QuestionsScreen();
+  */
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -76,7 +87,12 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child:
+          child: screenWidget,
+
+          //  Il codice seguente è una funzione ternaria, scritta in modo
+          //  più semplice, ma è preferibile scritta all'inizio
+          //  del metodo build, come abbiamo fatto sopra.
+          /*
               activeScreen ==
                       'starting-screen' // Se lo schermo attivo è 'starting-screen'
                   ? StartingScreen(
@@ -85,6 +101,7 @@ class _QuizState extends State<Quiz> {
                   : const QuestionsScreen(
                     // altrimenti, mostra QuestionsScreen
                   ),
+                  */
         ),
       ),
     );
